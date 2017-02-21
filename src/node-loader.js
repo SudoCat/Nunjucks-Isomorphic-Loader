@@ -6,13 +6,24 @@ module.exports = function(source) {
 	var paths = Array.isArray(opt.root) ? opt.root : [opt.root];
 	var context = JSON.stringify(opt.context || {});
 
-  var nunjucks = utils.stringifyRequest(this, '!' + require.resolve('nunjucks/index'));
+  paths = paths.map(function(el) {
+    return utils.stringifyRequest(this, el);
+  });
 
-  var module = 'var nunjucks = require("' + nunjucks + '");\n'
+  var njkPath = require.resolve('nunjucks/src/environment');
+  var nunjucks = utils.stringifyRequest(this, '!' + njkPath);
+  this.addDependency(njkPath);
+
+  var fsLoaderPath = require.resolve('./njk-loader');
+  var fsLoader = utils.stringifyRequest(this, '!' + fsLoaderPath);
+  this.addDependency(fsLoaderPath);
+
+  var module = 'var nunjucks = require(' + nunjucks + ');\n'
+  + 'var fsLoader = require(' + fsLoader + ');\n'
 	+ `module.exports = function(data) {
-      var paths = '${utils.stringifyRequest(paths.toString())}'.split(',');
-    	var env = new nunjucks.Environment(new nunjucks.FileSystemLoader(paths));
-    	var template = nunjucks.compile(\`${source}\`, env);
+      var paths = ${paths.toString()}.split(',');
+    	var env = new nunjucks.Environment(new fsLoader(paths));
+    	var template = new nunjucks.Template(\`${source}\`, env);
     	var context = JSON.parse('${context}');
 			return template.render(Object.assign({}, context, data));
 		}`;
