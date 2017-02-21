@@ -8,7 +8,7 @@
  ******************************************************************/
 
 module.exports = function (source) {
-  return this.target === 'web' (
+  return this.target === 'web' ? (
     require('nunjucks-loader')(source)
   ) : (
     require('./src/node-loader')(source)
