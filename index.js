@@ -9,8 +9,8 @@
 
 module.exports = function (source) {
   return this.target === 'web' (
-    require('nunjucks-loader')(source);
+    require('nunjucks-loader')(source)
   ) : (
-    require('./src/node-loader')(source);
+    require('./src/node-loader')(source)
   );
 };
