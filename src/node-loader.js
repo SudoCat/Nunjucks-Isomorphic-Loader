@@ -1,14 +1,16 @@
 var utils = require('loader-utils');
 
 module.exports = function(source) {
-	var opt = utils.parseQuery(this.query);
+	var opt = utils.getOptions(this);
 
 	var paths = Array.isArray(opt.root) ? opt.root : [opt.root];
 	var context = JSON.stringify(opt.context || {});
 
-	var module = 'var nunjucks = require("nunjucks/index");\n'
+  var nunjucks = utils.stringifyRequest(this, '!' + require.resolve('nunjucks/index'));
+
+  var module = 'var nunjucks = require("' + nunjucks + '");\n'
 	+ `module.exports = function(data) {
-      var paths = '${paths.toString().replace(/\\/g, '\\\\')}'.split(',');
+      var paths = '${utils.stringifyRequest(paths.toString())}'.split(',');
     	var env = new nunjucks.Environment(new nunjucks.FileSystemLoader(paths));
     	var template = nunjucks.compile(\`${source}\`, env);
     	var context = JSON.parse('${context}');
