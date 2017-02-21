@@ -1,6 +1,6 @@
 {
   "name": "nunjucks-isomorphic-loader",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A nunjucks loader for webpack, supporting both javascript template usage and static compilation through HtmlWebpackPlugin.",
   "main": "index.js",
   "repository": {
