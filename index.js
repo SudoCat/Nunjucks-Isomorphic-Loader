@@ -5,6 +5,8 @@
  *
  *  Full credit to the original authors.
  *
+ *  Robin Neal
+ *
  ******************************************************************/
 
 module.exports = function (source) {
