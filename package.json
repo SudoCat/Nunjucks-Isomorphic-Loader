@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/sudocat/nunjucks-isomorphic-loader",
   "dependencies": {
+    "loader-utils": "^1.1.0",
     "nunjucks-loader": "^2.4.5"
   },
   "peerDependencies": {
