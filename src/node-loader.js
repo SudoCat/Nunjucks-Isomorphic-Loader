@@ -45,13 +45,13 @@ module.exports = function(source) {
 
 	var env = new nunjucks.Environment(new fsLoader(paths, this.addDependency));
 
-	var name = path.relative(opt.root[0], this.resourcePath);
+	var name = path.relative(paths[0], this.resourcePath);
 
-	this.addContextDependency(opt.root[0]);
+	this.addContextDependency(paths[0]);
 
-	var precompiledTemplates = nunjucks.precompile(opt.root[0], {
+	var precompiledTemplates = nunjucks.precompile(paths[0], {
 		env: env,
-		include: [/.*\.njk$/]
+		include: [/.*\.(njk|nunjucks|html|tpl|tmpl)$/]
 	});
 
   var module = `// Return function to HtmlWebpackPlugin
