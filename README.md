@@ -8,18 +8,32 @@ This loader supports the following extensions: `.njk`, `.nunjucks`, `.html`, `.t
 
 ## Installation
 
-This loader needs the [`nunjucks`](https://www.npmjs.com/package/nunjucks) and [`nunjucks-loader`](https://www.npmjs.com/package/nunjucks-loader) as peer dependencies.
+This loader need [`nunjucks`](https://www.npmjs.com/package/nunjucks) as a peer dependency. Versions >= 2.5.0 <= 4.0.0 are accepted. If you do not have nunjucks already installed, first run:
 
 Using yarn:
 
 ```
-yarn add nunjucks-isomorphic-loader nunjucks-loader nunjucks -D
+yarn add nunjucks -D
 ```
 
 Using npm:
 
 ```
-npm install nunjucks-isomorphic-loader nunjucks-loader nunjucks -D
+npm install nunjucks -D
+```
+
+If you have nunjucks installed, you can then install the loader.
+
+Using yarn:
+
+```
+yarn add nunjucks-isomorphic-loader -D
+```
+
+Using npm:
+
+```
+npm install nunjucks-isomorphic-loader -D
 ```
 
 ## Usage
