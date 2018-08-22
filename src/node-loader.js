@@ -21,11 +21,21 @@ function getConfig(that, name) {
 	}
 }
 
+function getRootPath(rootPaths, lookUp) {
+	const contains = rootPaths.filter(opt => lookUp.indexOf(opt) === 0)
+
+	return  contains.reduce((acc, item) => {
+		if (!acc) { return item; }
+
+		return item.length > acc.length ? item : acc;
+	}, null);
+}
+
 module.exports = function(source) {
 	var opt = utils.getOptions(this);
-
 	var paths = Array.isArray(opt.root) ? opt.root : [opt.root];
 	var context;
+	const rootPath = getRootPath(paths, this.resourcePath);
 
 	if ( typeof opt.context === "string" ) {
 		context = getConfig(this, opt.context);
@@ -45,16 +55,16 @@ module.exports = function(source) {
 
 	var env = new nunjucks.Environment(new fsLoader(paths, this.addDependency));
 
-	var name = path.relative(paths[0], this.resourcePath);
+	var name = path.relative(rootPath, this.resourcePath);
 
-	this.addContextDependency(paths[0]);
+	this.addContextDependency(rootPath);
 
-	var precompiledTemplates = nunjucks.precompile(paths[0], {
+	var precompiledTemplates = nunjucks.precompile(rootPath, {
 		env: env,
 		include: [/.*\.(njk|nunjucks|html|tpl|tmpl)$/]
 	});
 
-  var module = `// Return function to HtmlWebpackPlugin
+  	return `// Return function to HtmlWebpackPlugin
 		// Allows Data var to be passed to templates
 		// Then render templates with both HtmlWebpackPlugin Data
 		// and Nunjucks Context
@@ -73,7 +83,5 @@ module.exports = function(source) {
 
 		module.exports = function(data) {
 			return env.render("${name}", Object.assign({}, context, data));
-		}`;
-
-  return module
+		}`
 }
