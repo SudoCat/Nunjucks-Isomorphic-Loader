@@ -6,6 +6,14 @@ Completely rewritten, now (mostly) error free. Supports context file (.js only) 
 
 This loader supports the following extensions: `.njk`, `.nunjucks`, `.html`, `.tpl`, `.tmpl`
 
+## Warning: (Mostly) Unmaintained
+
+Unfortunately, I rarely get much free time to work on this package any more. While I'll always try to answer any questions anyone has, it may take some time and I might not know the correct answer. Luckily the Open Source Community is filled with lovely people who have keep this updated and documented! 
+
+Special thanks to:
+- [3dos](https://github.com/3dos)
+- [sebbdk](https://github.com/sebbdk)
+
 ## Installation
 
 This loader need [`nunjucks`](https://www.npmjs.com/package/nunjucks) as a peer dependency. Versions >= 2.5.0 <= 4.0.0 are accepted. If you do not have nunjucks already installed, first run:
